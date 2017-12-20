@@ -11,7 +11,7 @@ get_orderbook <- function(pair = 'btcusd'){
     parsed <- jsonlite::fromJSON(httr::content(resp, "text"),
                                  simplifyVector = FALSE)
 
-    timestamp <- head(resp)$headers$date
+    timestamp <- as.numeric(parsed[[1]][[1]]$timestamp)
 
     bid <- t(sapply(parsed$bids,function(x) matrix(as.numeric(unlist(x))))[-3,])
     ask <- t(sapply(parsed$asks,function(x) matrix(as.numeric(unlist(x))))[-3,])

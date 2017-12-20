@@ -3,5 +3,5 @@
 #'
 store_orderbook <- function(l=get_orderbook(), folder='bitfinex'){
     print(l)
-    save(l,paste0('./',folder,'/',l$timestamp)
+    saveRDS(l, file=paste0(folder,'/orderbook_',l[[1]],'.rds'))
 }
