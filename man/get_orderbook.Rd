@@ -4,7 +4,7 @@
 \alias{get_orderbook}
 \title{Get orderbook}
 \usage{
-get_orderbook(pair = "btcusd")
+get_orderbook(exc = "bitfinex", level = 5)
 }
 \description{
 Get orderbook

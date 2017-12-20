@@ -2,7 +2,4 @@
 
 export(get_orderbook)
 export(store_orderbook)
-importFrom(httr,GET)
-importFrom(httr,content)
-importFrom(httr,http_error)
 importFrom(jsonlite,fromJSON)

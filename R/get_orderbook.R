@@ -1,21 +1,24 @@
 #' Get orderbook
 #' @export
-#' @importFrom httr GET
-#' @importFrom httr http_error
-#' @importFrom httr content
 #' @importFrom jsonlite fromJSON
 
-get_orderbook <- function(pair = 'btcusd'){
-    url <- "https://api.bitfinex.com/v1/book/btcusd"
-    resp <- GET(url)
-    parsed <- jsonlite::fromJSON(httr::content(resp, "text"),
+get_orderbook <- function(exc = 'bitfinex', level = 5){
+
+    if(exc=='bitfinex') url <- "https://api.bitfinex.com/v1/book/btcusd"
+    if(exc=='coinbase') url <- "https://api.gdax.com/products/BTC-USD/book?level=2"
+    if(exc=='bitstamp') url <- "https://www.bitstamp.net/api/order_book/"
+
+    parsed <- jsonlite::fromJSON(url,
                                  simplifyVector = FALSE)
 
-    timestamp <- as.numeric(parsed[[1]][[1]]$timestamp)
+    if(exc=='bitfinex') timestamp <- as.numeric(parsed[[1]][[1]]$timestamp)
+    if(exc=='coinbase') timestamp <- as.numeric(Sys.time())
+    if(exc=='bitstamp') timestamp <- as.numeric(parsed$timestamp)
 
-    bid <- t(sapply(parsed$bids,function(x) matrix(as.numeric(unlist(x))))[-3,])
-    ask <- t(sapply(parsed$asks,function(x) matrix(as.numeric(unlist(x))))[-3,])
+    bid <- t(sapply(parsed$bids,function(x) matrix(as.numeric(unlist(x))))[-3,1:level])
+    ask <- t(sapply(parsed$asks,function(x) matrix(as.numeric(unlist(x))))[-3,1:level])
 
     return(list(timestamp,bid,ask))
+
 }
 
