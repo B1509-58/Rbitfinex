@@ -1,4 +1,9 @@
 #' Get orderbook
+#' @description This function scraps data from the orderbook API of a number of Exchanges
+#' Currently implemented are *bitfinex, coinbase, bitstamp*, and *cex*
+#' @param exc str Name of the exchange (default = 'bitfinex')
+#' @param level Required orderbook level (default = 5, upper bound = 25)
+#' @return List with Timestamp (Unix-format), Ask Side (Price and Quantity), Bid (Price and Quantity)
 #' @export
 #' @importFrom jsonlite fromJSON
 
@@ -7,10 +12,9 @@ get_orderbook <- function(exc = 'bitfinex', level = 5){
     if(exc=='bitfinex') url <- "https://api.bitfinex.com/v1/book/btcusd"
     if(exc=='coinbase') url <- "https://api.gdax.com/products/BTC-USD/book?level=2"
     if(exc=='bitstamp') url <- "https://www.bitstamp.net/api/order_book/"
-    if(exc =='cex') url <- "https://cex.io/api/order_book/BTC/USD/?depth=5"
+    if(exc =='cex') url <- paste0("https://cex.io/api/order_book/BTC/USD/?depth=",level)
 
-    parsed <- jsonlite::fromJSON(url,
-                                 simplifyVector = FALSE)
+    parsed <- jsonlite::fromJSON(url, simplifyVector = FALSE)
 
     if(exc=='bitfinex') timestamp <- as.numeric(parsed[[1]][[1]]$timestamp)
     if(exc=='coinbase') timestamp <- as.numeric(Sys.time())

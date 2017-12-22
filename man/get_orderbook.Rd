@@ -6,6 +6,15 @@
 \usage{
 get_orderbook(exc = "bitfinex", level = 5)
 }
+\arguments{
+\item{exc}{str Name of the exchange (default = 'bitfinex')}
+
+\item{level}{Required orderbook level (default = 5, upper bound = 25)}
+}
+\value{
+List with Timestamp (Unix-format), Ask Side (Price and Quantity), Bid (Price and Quantity)
+}
 \description{
-Get orderbook
+This function scraps data from the orderbook API of a number of Exchanges
+Currently implemented are *bitfinex, coinbase, bitstamp*, and *cex*
 }
