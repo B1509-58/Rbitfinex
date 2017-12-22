@@ -4,7 +4,7 @@
 \alias{store_orderbook}
 \title{Live Scrapper (whenever this file is running it gets the current orderbook snapshot and stores it)}
 \usage{
-store_orderbook(exc = "bitfinex", l = NA)
+store_orderbook(exc = "bitfinex", level = 5, l = NA)
 }
 \description{
 Live Scrapper (whenever this file is running it gets the current orderbook snapshot and stores it)
