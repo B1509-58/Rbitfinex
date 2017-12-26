@@ -16,5 +16,5 @@ List with Timestamp (Unix-format), Ask Side (Price and Quantity), Bid (Price and
 }
 \description{
 This function scraps data from the orderbook API of a number of Exchanges
-Currently implemented are *bitfinex, coinbase, bitstamp*, and *cex*
+Currently implemented are *bitfinex, coinbase, bitstamp, cex, btcc, binance, bittrex, kraken*, and *bitflyer*
 }
