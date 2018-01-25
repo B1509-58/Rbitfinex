@@ -28,8 +28,8 @@ get_orderbook_bittrex <- function(level = 5){
 
     url <- "https://bittrex.com/api/v1.1/public/getorderbook?market=USDT-BTC&type=both"
     parsed <- jsonlite::fromJSON(url, simplifyVector = FALSE)
-    ask <- t(sapply(parsed$result$buy,function(x) matrix(as.numeric(unlist(x))))[-3,1:5])[,c(2,1)]
-    bid <- t(sapply(parsed$result$sell,function(x) matrix(as.numeric(unlist(x))))[-3,1:5])[,c(2,1)]
+    bid <- t(sapply(parsed$result$buy,function(x) matrix(as.numeric(unlist(x))))[-3,1:5])[,c(2,1)]
+    ask <- t(sapply(parsed$result$sell,function(x) matrix(as.numeric(unlist(x))))[-3,1:5])[,c(2,1)]
     timestamp <- as.numeric(Sys.time())
 
     return(list(timestamp=timestamp,bid=bid,ask=ask))
